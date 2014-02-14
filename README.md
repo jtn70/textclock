@@ -10,7 +10,7 @@ Licensed under GPLv3.
 textclock is based in part on works of the GtkD project 
 (http://www.dsource.org/projects/gtkd)
 
-Please view LICENSING for additional information.
+Please view LICENSE for additional information.
 
 The program is written in D and will compile on the standard D compiler.
 
