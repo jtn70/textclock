@@ -260,7 +260,7 @@ protected:
                 {
                     cr.newSubPath();
                     cr.setLineWidth(0.3);
-                    cr.arc(calsx + weekday * xgap+6, calsy + (weekno*ygap)-3, 10, 0, 360);
+                    cr.arc(calsx + weekday * xgap+7, calsy + (weekno*ygap)-4, 10, 0, 360);
                     cr.stroke();
                     cr.moveTo(calsx + weekday * xgap, calsy + (weekno*ygap));
                     cr.showText(format("%02d", tmpday));
