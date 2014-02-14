@@ -67,7 +67,9 @@ class WidgetWindow : MainWindow
     Menu menu;
     const int defaultxSize = 520;
     const int defaultySize = 350;
-    
+    int defaultxpos;
+    int defaultypos;
+    Timeout appmovetimer;
 
     this(string xpos, string ypos, string verstring)
     {
@@ -79,6 +81,9 @@ class WidgetWindow : MainWindow
         MenuItem menuQuitItem = new MenuItem("Quit");
         menuQuitItem.addOnButtonRelease(&onQuit);
         menu.append(menuQuitItem);
+
+        defaultxpos = to!int(xpos);
+        defaultypos = to!int(ypos);
 
         // Turn window transparency on
         Screen screen = getScreen();
@@ -96,9 +101,11 @@ class WidgetWindow : MainWindow
 
         // Set default window size and move the window.
         setDefaultSize (defaultxSize, defaultySize);
-        move(to!int(xpos), to!int(ypos));
+        move(defaultxpos, defaultypos);
 
         TextClock tc = new TextClock();
+
+        appmovetimer = new Timeout(2000, &appmoveTimer, false);
 
         // Show the window and run the application
         tc.addOnButtonPress(&onButtonPress);
@@ -148,6 +155,17 @@ class WidgetWindow : MainWindow
         }
         return false;
     }
+
+    bool appmoveTimer()
+    {
+        int curxpos;
+        int curypos;
+        getPosition(curxpos, curypos);
+        if (defaultxpos != curxpos && defaultypos != curypos)
+            move(defaultxpos, defaultypos);
+
+        return false;
+    }
 }
 
 
@@ -159,7 +177,7 @@ class WidgetWindow : MainWindow
         ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
     const string monthname[] =
         ["january", "february", "march", "april", "may", "june", "july", "august", "september", "november", "december"];
-    Timeout appTimer;
+    Timeout redrawtimer;
     static bool secondState = false;
 
  public:
@@ -168,7 +186,7 @@ class WidgetWindow : MainWindow
         // Attach our expose callback, which will draw the window.
         // this.setOpacity(0.1);
         
-        appTimer = new Timeout(60000, &funcTimer, false);
+        redrawtimer = new Timeout(60000, &redrawTimer, false);
         addOnDraw(&drawCallback);
     }
 
@@ -208,9 +226,13 @@ protected:
             else
                 secondState = true;
             */
-            cr.moveTo(370, 70);
+            cr.selectFontFace("Georgia", cairo_font_slant_t.NORMAL, cairo_font_weight_t.NORMAL);
+            cr.setFontSize(50);
+            cr.moveTo(375, 60);
             cr.showText(":");
 
+            cr.selectFontFace("Existence Light", cairo_font_slant_t.NORMAL, cairo_font_weight_t.NORMAL);
+            cr.setFontSize(100);
             cr.moveTo(395, 80);
             cr.showText(format("%02d", Clock.currTime().minute));
 
@@ -260,7 +282,7 @@ protected:
                 {
                     cr.newSubPath();
                     cr.setLineWidth(0.3);
-                    cr.arc(calsx + weekday * xgap+7, calsy + (weekno*ygap)-4, 10, 0, 360);
+                    cr.arc(calsx + weekday * xgap+6, calsy + (weekno*ygap)-3, 10, 0, 360);
                     cr.stroke();
                     cr.moveTo(calsx + weekday * xgap, calsy + (weekno*ygap));
                     cr.showText(format("%02d", tmpday));
@@ -289,7 +311,7 @@ protected:
         return true;
     }
 
-    bool funcTimer()
+    bool redrawTimer()
     {
         queueDraw();
         return true;
