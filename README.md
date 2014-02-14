@@ -20,6 +20,7 @@ Requirements:
 - GtkD library (http://gtkd.org)
 - Cairo, Pango
 - D reference compiler with Phobos std. library 
+- Existence Light and Liberation Sans fonts
 
 
 Building
