@@ -1,1 +1,3 @@
+# Files that git should ignore
 textclock
+textclock.o
