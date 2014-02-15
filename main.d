@@ -37,7 +37,7 @@ import textclock;
 import std.stdio;
 import std.getopt;
 import std.conv;
-import core.time;
+import core.thread;
 
 import gtk.MainWindow;
 import gtk.Widget;
@@ -72,6 +72,8 @@ void main(string[] args)
         showVersion();
         return;
     }
+
+    // Thread.sleep(dur!("seconds")( 5 ));
 
     new WidgetWindow(xpos, ypos, verstring);
 

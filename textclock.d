@@ -172,9 +172,9 @@ class WidgetWindow : MainWindow
  class TextClock : DrawingArea
  {
     const string weekdayname[] = 
-        ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+        ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
     const string weekdaynameshort[] = 
-        ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
+        ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
     const string monthname[] =
         ["january", "february", "march", "april", "may", "june", "july", "august", "september", "november", "december"];
     Timeout redrawtimer;
@@ -245,7 +245,7 @@ protected:
             cr.setFontSize(30);
             //cr.showText(format("%s %02d. %s %d", Clock.currTime().day));
             cr.showText(format("%s %02d. %s %04d", 
-                weekdayname[(cast(DateTime)Clock.currTime()).dayOfWeek-1],
+                weekdayname[(cast(DateTime)Clock.currTime()).dayOfWeek],
                 Clock.currTime().day,
                 monthname[Clock.currTime().month-1],
                 Clock.currTime().year));
@@ -263,7 +263,15 @@ protected:
             foreach(int tmpday; 0 .. 7)
             {
                 cr.moveTo(calsx + ((tmpday+1) * xgap), calsy);
-                cr.showText(weekdaynameshort[tmpday]);
+
+                // Evidently week start standarization should be a good thing ???
+                // ISO standard start the week with monday,
+                // the americans start the week with sunday
+                // So this is a little hack to get the calendar right
+                if (tmpday == 6)                                
+                    cr.showText(weekdaynameshort[0]);  
+                else
+                    cr.showText(weekdaynameshort[tmpday+1]);
             }
             
             int startweek = Date(tdate.year, tdate.month, 1).isoWeek;
