@@ -2,6 +2,7 @@ textclock
 =========
 
 textclock is a small application displaying a textclock with date and calendar on the desktop
+(See textclock.png for a screencapture of the running application).
 
 Version 1.0
 Copyright (c) 2014 Jens Torgeir Næss
@@ -20,17 +21,18 @@ Requirements:
 - GtkD library (http://gtkd.org)
 - Cairo, Pango
 - D reference compiler with Phobos std. library 
-- Existence Light and Liberation Sans fonts
+- Existence Light, Georgia and Liberation Sans fonts
 
 
 Building
 --------
-Automatic building tools is not provided yes.
+Automatic building tools is not provided yet.
+
 To build:
 dmd -m64 -O -release -inline -noboundscheck textclock.d main.d -L-lgtkd-2 -L-lphobos2 -oftextclock
 
 chmod +x textclock
-copy textclock to wanted directory
+copy textclock to the wanted directory
 
 If you want a smaller executable, run the following commands
 strip --strip-unneeded textclock
