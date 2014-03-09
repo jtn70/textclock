@@ -16,3 +16,6 @@ main.o:		main.d
 
 textclock.o:	textclock.d
 				$(CC) $(CFLAGS) textclock.d
+
+clean:			
+				rm -rf *.o textclock
