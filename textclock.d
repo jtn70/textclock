@@ -65,8 +65,8 @@ import gtk.MenuItem;
 class WidgetWindow : MainWindow
 {
     Menu menu;
-    const int defaultxSize = 520;
-    const int defaultySize = 350;
+    static int defaultxSize = 520;
+    static int defaultySize = 350;
     int defaultxpos;
     int defaultypos;
     Timeout appmovetimer;
@@ -171,11 +171,11 @@ class WidgetWindow : MainWindow
 
  class TextClock : DrawingArea
  {
-    const string weekdayname[] = 
+    static string weekdayname[] = 
         ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-    const string weekdaynameshort[] = 
+    static string weekdaynameshort[] = 
         ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-    const string monthname[] =
+    static string monthname[] =
         ["january", "february", "march", "april", "may", "june", "july", "august", "september", "november", "december"];
     Timeout redrawtimer;
     static bool secondState = false;
