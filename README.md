@@ -26,10 +26,9 @@ Requirements:
 
 Building
 --------
-Automatic building tools is not provided yet.
 
 To build:
-dmd -m64 -O -release -inline -noboundscheck textclock.d main.d -L-lgtkd-2 -L-lphobos2 -oftextclock
+make
 
 chmod +x textclock
 copy textclock to the wanted directory
